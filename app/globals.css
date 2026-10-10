@@ -1,26 +1,315 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-2: var(--brand-2);
+  --color-brand-2-foreground: var(--brand-2-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-highlight-soft: var(--highlight-soft);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-heading: var(--font-heading);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /*
+   * Brand palette, sampled from the RKS Technology Group logo.
+   *   Indigo  #1800AD — primary: buttons, key accents, statistics band
+   *   Blue    #004AAD — secondary: links, icons, hover states, CTA band
+   *   Yellow  #FFDE59 — highlight: fills and text on indigo/blue only
+   *                     (yellow text on white does not meet contrast).
+   */
+  --brand: #1800ad;
+  --brand-foreground: #ffffff;
+  --brand-soft: #eeecfb;
+  --brand-2: #004aad;
+  --brand-2-foreground: #ffffff;
+  --highlight: #ffde59;
+  --highlight-foreground: #14122b;
+  --highlight-soft: #fff7d6;
+  /* Cool neutral surface, matching the logo's background tone. */
+  --surface: #f3f3f6;
+  /* Deep navy for photo overlays (hero). */
+  --ink: #0d0b2e;
+
+  --background: #fcfcfd;
+  --foreground: #14122b;
+  --card: #ffffff;
+  --card-foreground: #14122b;
+  --popover: #ffffff;
+  --popover-foreground: #14122b;
+  --primary: #1800ad;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f3f6;
+  --secondary-foreground: #14122b;
+  --muted: #f3f3f6;
+  --muted-foreground: #565470;
+  --accent: #eeecfb;
+  --accent-foreground: #14122b;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e3e2eb;
+  --input: #d6d5e0;
+  --ring: #004aad;
+  --chart-1: #1800ad;
+  --chart-2: #004aad;
+  --chart-3: #ffde59;
+  --chart-4: #565470;
+  --chart-5: #14122b;
+  --radius: 0.625rem;
+  --sidebar: #f3f3f6;
+  --sidebar-foreground: #14122b;
+  --sidebar-primary: #1800ad;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eeecfb;
+  --sidebar-accent-foreground: #14122b;
+  --sidebar-border: #e3e2eb;
+  --sidebar-ring: #004aad;
+}
+
+.dark {
+  --background: oklch(0.147 0.004 49.3);
+  --foreground: oklch(0.986 0.002 67.8);
+  --card: oklch(0.214 0.009 43.1);
+  --card-foreground: oklch(0.986 0.002 67.8);
+  --popover: oklch(0.214 0.009 43.1);
+  --popover-foreground: oklch(0.986 0.002 67.8);
+  --primary: oklch(0.922 0.005 34.3);
+  --primary-foreground: oklch(0.214 0.009 43.1);
+  --secondary: oklch(0.268 0.011 36.5);
+  --secondary-foreground: oklch(0.986 0.002 67.8);
+  --muted: oklch(0.268 0.011 36.5);
+  --muted-foreground: oklch(0.714 0.014 41.2);
+  --accent: oklch(0.268 0.011 36.5);
+  --accent-foreground: oklch(0.986 0.002 67.8);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.547 0.021 43.1);
+  --chart-1: oklch(0.868 0.007 39.5);
+  --chart-2: oklch(0.547 0.021 43.1);
+  --chart-3: oklch(0.438 0.017 39.3);
+  --chart-4: oklch(0.367 0.016 35.7);
+  --chart-5: oklch(0.268 0.011 36.5);
+  --sidebar: oklch(0.214 0.009 43.1);
+  --sidebar-foreground: oklch(0.986 0.002 67.8);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.986 0.002 67.8);
+  --sidebar-accent: oklch(0.268 0.011 36.5);
+  --sidebar-accent-foreground: oklch(0.986 0.002 67.8);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.547 0.021 43.1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+  ::selection {
+    background: var(--highlight);
+    color: var(--highlight-foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 3rem;
+  }
+}
+
+@utility section-y {
+  padding-block: 5rem;
+  @media (width >= 48rem) {
+    padding-block: 7rem;
+  }
+}
+
+/* Slow "Ken Burns" zoom that keeps the hero photo alive. */
+@keyframes kenburns {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to { transform: scale(1.14) translate3d(-1.5%, -1%, 0); }
+}
+
+/* Slow drift for the hero's decorative shapes. */
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2%, -3%, 0) scale(1.04); }
+}
+
+/*
+ * "Leaf" corners — the logo's signature shape: top-left and bottom-right
+ * rounded, the other two corners square. Use sparingly on panels and tiles.
+ */
+@utility rounded-leaf-sm {
+  border-radius: 0.5rem 0 0.5rem 0;
+}
+@utility rounded-leaf {
+  border-radius: 1.5rem 0 1.5rem 0;
+}
+@utility rounded-leaf-lg {
+  border-radius: 3rem 0 3rem 0;
+}
+
+/*
+ * Cursor-reactive effects. Positions come from <Spotlight> as --spot-x/--spot-y
+ * (see components/motion/spotlight.tsx); effects only appear on hover-capable
+ * devices with a fine pointer.
+ */
+@layer components {
+  /* Soft fill + border glow on a card under the cursor. */
+  .spotlight-card {
+    isolation: isolate;
+  }
+  .spotlight-card::before,
+  .spotlight-card::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .spotlight-card::before {
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      420px circle at var(--spot-x, -999px) var(--spot-y, -999px),
+      color-mix(in oklab, var(--brand) 7%, transparent),
+      transparent 45%
+    );
+  }
+  .spotlight-card::after {
+    inset: -1px;
+    padding: 1px;
+    background: radial-gradient(
+      260px circle at var(--spot-x, -999px) var(--spot-y, -999px),
+      var(--brand-2),
+      transparent 60%
+    );
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
+  /* Divider lines of a gap-px grid light up near the cursor. */
+  .spotlight-grid {
+    background-color: var(--border);
+  }
+
+  /* Ambient glow for a whole band. */
+  .spotlight-glow {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: radial-gradient(
+      520px circle at var(--spot-x, -999px) var(--spot-y, -999px),
+      color-mix(in oklab, var(--highlight) 16%, transparent),
+      transparent 60%
+    );
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    [data-spotlight]:hover .spotlight-card::before,
+    [data-spotlight]:hover .spotlight-card::after,
+    [data-spotlight]:hover > .spotlight-glow,
+    [data-spotlight]:hover .spotlight-glow {
+      opacity: 1;
+    }
+    .spotlight-grid[data-spotlight]:hover {
+      background-image: radial-gradient(
+        240px circle at var(--spot-x, -999px) var(--spot-y, -999px),
+        color-mix(in oklab, var(--brand-2) 75%, transparent),
+        transparent 70%
+      );
+    }
+  }
 }
