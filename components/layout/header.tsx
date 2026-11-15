@@ -1,18 +1,19 @@
 "use client"
 
 import { AnimatePresence, m } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Clock, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
 import { Logo } from "@/components/layout/logo"
 import { buttonVariants } from "@/components/ui/button"
-import { organization } from "@/config/organization"
+import { officeHoursText, organization } from "@/config/organization"
 import { cn } from "@/lib/utils"
 
 const navItems = organization.navigation
 const cta = organization.hero.primaryCta
+const hoursText = officeHoursText(organization.contact.officeHours)
 
 const isCurrent = (pathname: string, href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href))
 
@@ -97,12 +98,22 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            href={cta.href}
-            className={cn(buttonVariants({ size: "sm" }), "hidden bg-brand text-brand-foreground hover:bg-brand-2 sm:inline-flex")}
-          >
-            {cta.label}
-          </Link>
+          {/* Office hours sit just above the call to action. */}
+          <div className="hidden flex-col items-end gap-1 sm:flex">
+            {hoursText && (
+              <p className="flex items-center gap-1.5 text-[0.7rem] leading-none font-semibold whitespace-nowrap text-muted-foreground">
+                <Clock className="size-3 text-brand-2" aria-hidden="true" />
+                <span className="sr-only">Office hours: </span>
+                {hoursText}
+              </p>
+            )}
+            <Link
+              href={cta.href}
+              className={cn(buttonVariants({ size: "sm" }), "bg-brand text-brand-foreground hover:bg-brand-2")}
+            >
+              {cta.label}
+            </Link>
+          </div>
           <button
             ref={toggleRef}
             type="button"
@@ -149,6 +160,13 @@ export function Header() {
                 </m.li>
               ))}
               <li className="pt-6">
+                {hoursText && (
+                  <p className="mb-3 flex items-center justify-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                    <Clock className="size-3.5 text-brand-2" aria-hidden="true" />
+                    <span className="sr-only">Office hours: </span>
+                    {hoursText}
+                  </p>
+                )}
                 <Link
                   href={cta.href}
                   onClick={closeMenu}
