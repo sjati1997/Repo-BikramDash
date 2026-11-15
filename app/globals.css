@@ -313,3 +313,37 @@
     }
   }
 }
+
+/*
+ * Approach progress line: brand gradient with a soft light that keeps flowing
+ * along it (paused for reduced motion by the global rule above).
+ */
+.progress-flow-x,
+.progress-flow-y {
+  background-image: linear-gradient(
+    var(--flow-direction),
+    var(--brand) 0%,
+    var(--brand-2) 35%,
+    var(--highlight) 50%,
+    var(--brand-2) 65%,
+    var(--brand) 100%
+  );
+}
+.progress-flow-x {
+  --flow-direction: to right;
+  background-size: 200% 100%;
+  animation: progress-flow-x 2.4s linear infinite;
+}
+.progress-flow-y {
+  --flow-direction: to bottom;
+  background-size: 100% 200%;
+  animation: progress-flow-y 2.4s linear infinite;
+}
+@keyframes progress-flow-x {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+@keyframes progress-flow-y {
+  from { background-position: 0 100%; }
+  to { background-position: 0 -100%; }
+}

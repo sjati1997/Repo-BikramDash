@@ -1,12 +1,13 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Clock, Globe, Mail, MapPin, Phone, type LucideIcon } from "lucide-react"
 import Link from "next/link"
 
 import { brandMarkPaths } from "@/components/brand/brand-mark"
 import { Logo } from "@/components/layout/logo"
 import { SocialIcon } from "@/components/ui/social-icon"
-import { addressLines, organization, phoneHref, websiteLabel } from "@/config/organization"
+import { addressLines, officeHoursText, organization, phoneHref, websiteLabel } from "@/config/organization"
 
 const linkClass = "text-white/70 transition-colors hover:text-white"
+const hoursText = officeHoursText(organization.contact.officeHours)
 
 export function Footer() {
   const { contact, navigation, socialLinks } = organization
@@ -74,41 +75,42 @@ export function Footer() {
 
         <div className="md:col-span-4">
           <h2 className="text-xs font-semibold tracking-[0.18em] text-highlight uppercase">Contact</h2>
-          <address className="mt-5 space-y-3 text-sm not-italic">
+          <address className="mt-5 space-y-3.5 text-sm not-italic">
             {contact.address && (
-              <p className="text-white/70">
-                {addressLines(contact.address).map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </p>
+              <ContactLine icon={MapPin} label="Address">
+                <span className="text-white/70">
+                  {addressLines(contact.address).map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </span>
+              </ContactLine>
             )}
             {contact.email && (
-              <p>
+              <ContactLine icon={Mail} label="Email">
                 <a href={`mailto:${contact.email}`} className={linkClass}>
                   {contact.email}
                 </a>
-              </p>
+              </ContactLine>
             )}
             {contact.phone && (
-              <p>
+              <ContactLine icon={Phone} label="Phone">
                 <a href={phoneHref(contact.phone)} className={linkClass}>
                   {contact.phone}
                 </a>
-              </p>
+              </ContactLine>
             )}
-            {contact.officeHours?.map((entry) => (
-              <p key={`${entry.days ?? ""}${entry.hours}`} className="text-white/70">
-                {entry.days ? `${entry.days}: ` : "Office hours: "}
-                {entry.hours}
-              </p>
-            ))}
-            <p>
+            <ContactLine icon={Globe} label="Website">
               <a href={contact.website} className={linkClass}>
                 {websiteLabel}
               </a>
-            </p>
+            </ContactLine>
+            {hoursText && (
+              <ContactLine icon={Clock} label="Office hours">
+                <span className="text-white/70">{hoursText}</span>
+              </ContactLine>
+            )}
           </address>
           <Link
             href="/contact"
@@ -131,5 +133,18 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  )
+}
+
+/** One footer contact detail with its symbol (decorative; the label is read by screen readers). */
+function ContactLine({ icon: Icon, label, children }: { icon: LucideIcon; label: string; children: React.ReactNode }) {
+  return (
+    <p className="flex items-start gap-3">
+      <Icon className="mt-0.5 size-4 shrink-0 text-highlight" aria-hidden="true" />
+      <span>
+        <span className="sr-only">{label}: </span>
+        {children}
+      </span>
+    </p>
   )
 }
