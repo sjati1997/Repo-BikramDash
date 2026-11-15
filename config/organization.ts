@@ -10,13 +10,9 @@
  */
 
 import type { LucideIcon } from "lucide-react"
-
-import type { MapLocation } from "@/lib/maps"
 import {
-  Award,
   BrainCircuit,
   BriefcaseBusiness,
-  ClipboardCheck,
   Cpu,
   Ear,
   Eye,
@@ -24,21 +20,19 @@ import {
   FileUser,
   GraduationCap,
   Handshake,
-  HeartHandshake,
   Layers,
-  Lightbulb,
   MessagesSquare,
   MonitorCog,
   MonitorPlay,
   PackageCheck,
   Rocket,
   SearchCheck,
-  ShieldCheck,
   Target,
-  TrendingUp,
-  Trophy,
   UsersRound,
 } from "lucide-react"
+
+import type { ValueEmblemName } from "@/components/brand/value-emblem"
+import type { MapLocation } from "@/lib/maps"
 
 export type NavItem = { label: string; href: `/${string}` }
 
@@ -50,6 +44,9 @@ export type SocialLink = { platform: SocialPlatform; label: string; href: string
 
 export type IconItem = { icon: LucideIcon; title: string }
 export type IconCard = IconItem & { description: string }
+
+/** A company value with its custom emblem (see components/brand/value-emblem.tsx). */
+export type ValueItem = { emblem: ValueEmblemName; title: string }
 
 export type Service = IconCard & {
   /** Optional call to action shown at the bottom of the card. */
@@ -90,8 +87,7 @@ export const organization = {
       postalCode: "30350",
       country: "US",
     } as Address | null,
-    // Add `days` (e.g. "Monday – Friday") if the client confirms which days these apply to.
-    officeHours: [{ hours: "9:30 AM – 6:30 PM EST" }] as OfficeHours | null,
+    officeHours: [{ days: "Mon – Fri", hours: "9:30 AM – 6:30 PM EST" }] as OfficeHours | null,
     /**
      * Where the Google Map in the Contact section points. An address works;
      * for pin-point accuracy use coordinates instead — in Google Maps,
@@ -285,14 +281,14 @@ export const organization = {
       },
     ] satisfies IconCard[],
     values: [
-      { icon: ShieldCheck, title: "Integrity" },
-      { icon: Award, title: "Excellence" },
-      { icon: Lightbulb, title: "Innovation" },
-      { icon: Trophy, title: "Client Success" },
-      { icon: HeartHandshake, title: "Partnership" },
-      { icon: ClipboardCheck, title: "Accountability" },
-      { icon: TrendingUp, title: "Continuous Improvement" },
-    ] satisfies IconItem[],
+      { emblem: "integrity", title: "Integrity" },
+      { emblem: "excellence", title: "Excellence" },
+      { emblem: "innovation", title: "Innovation" },
+      { emblem: "client-success", title: "Client Success" },
+      { emblem: "partnership", title: "Partnership" },
+      { emblem: "accountability", title: "Accountability" },
+      { emblem: "continuous-improvement", title: "Continuous Improvement" },
+    ] satisfies ValueItem[],
   },
 
   commitment: {
@@ -340,6 +336,12 @@ export const websiteLabel = organization.contact.website.replace(/^https?:\/\//,
 /** Address as display lines, e.g. ["8735 Dunwoody Place, Ste N", "Atlanta, GA 30350"]. */
 export function addressLines(address: Address) {
   return [address.street, `${address.city}, ${address.region} ${address.postalCode}`]
+}
+
+/** Office hours on one line, e.g. "Mon – Fri: 9:30 AM – 6:30 PM EST" (null when not set). */
+export function officeHoursText(hours: OfficeHours | null) {
+  if (!hours?.length) return null
+  return hours.map((entry) => (entry.days ? `${entry.days}: ${entry.hours}` : entry.hours)).join(" · ")
 }
 
 /** Phone number as an international tel: link (assumes a US number when no country code is given). */
