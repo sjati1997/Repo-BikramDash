@@ -11,7 +11,7 @@ Group staff, clients or premises.
 | File | Used in | Source |
 | --- | --- | --- |
 | `network-earth.jpg` | "Why RKS" band | https://images.unsplash.com/photo-1451187580459-43490279c0fa |
-| `about-workshop.jpg` | About section | https://images.unsplash.com/photo-1552664730-d307ca884978 |
+| `about-consultation.jpg` | About section | https://images.unsplash.com/photo-1573497620053-ea5300f94f21 |
 | `commitment-partners.jpg` | Our Commitment | https://images.unsplash.com/photo-1600880292203-757bb62b4baf |
 | `relationships-towers.jpg` | "Building Relationships That Last" band | https://images.unsplash.com/photo-1486406146926-c627a92ad1ab |
 

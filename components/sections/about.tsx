@@ -27,7 +27,7 @@ export function About() {
 
         <Reveal className="lg:col-span-5 lg:order-1">
           <TiltCard className="mr-4 rounded-leaf-lg sm:mr-0" max={6}>
-            <div className="relative aspect-4/3 overflow-hidden rounded-leaf-lg bg-surface shadow-[0_40px_70px_-40px_oklch(0.2_0.1_280/0.55)] sm:aspect-16/10 lg:aspect-4/5">
+            <div className="relative aspect-4/3 overflow-hidden rounded-leaf-lg bg-surface shadow-[0_40px_70px_-40px_oklch(0.2_0.1_280/0.55)] sm:aspect-16/10 lg:aspect-5/4">
               <Image
                 src={images.about.src}
                 alt={images.about.alt}
