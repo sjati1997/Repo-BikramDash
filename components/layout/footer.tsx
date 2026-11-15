@@ -1,13 +1,19 @@
+import { ArrowRight } from "lucide-react"
+import Link from "next/link"
+
+import { brandMarkPaths } from "@/components/brand/brand-mark"
 import { Logo } from "@/components/layout/logo"
 import { SocialIcon } from "@/components/ui/social-icon"
 import { organization, websiteLabel } from "@/config/organization"
+
+const linkClass = "text-white/70 transition-colors hover:text-white"
 
 export function Footer() {
   const { contact, navigation, socialLinks } = organization
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-background">
+    <footer className="relative isolate mt-10 overflow-hidden bg-ink text-white sm:mt-16 [&_a:focus-visible]:outline-white">
       {/* Three-colour rule echoing the logo. */}
       <div aria-hidden="true" className="grid h-1 grid-cols-[3fr_2fr_1fr]">
         <span className="bg-brand" />
@@ -15,11 +21,25 @@ export function Footer() {
         <span className="bg-highlight" />
       </div>
 
-      <div className="container-page grid gap-12 py-16 md:grid-cols-12 md:gap-8">
+      {/* Soft indigo glow and an oversized outline of the logo mark as a watermark. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-40 left-1/4 size-[36rem] rounded-full bg-brand/45 blur-3xl" />
+        <div className="absolute -right-20 -bottom-48 size-[28rem] rounded-full bg-brand-2/30 blur-3xl" />
+        <svg viewBox="0 0 626 626" className="absolute -right-16 -bottom-24 size-[26rem] text-white opacity-[0.06] sm:size-[32rem]">
+          {Object.values(brandMarkPaths).map((d) => (
+            <path key={d} d={d} fill="none" stroke="currentColor" strokeWidth="5" />
+          ))}
+        </svg>
+      </div>
+
+      <div className="container-page grid gap-12 py-16 md:grid-cols-12 md:gap-8 md:py-20">
         <div className="md:col-span-5">
-          <Logo size="lg" />
-          <p className="mt-6 max-w-sm font-heading text-lg font-bold text-foreground">{organization.tagline}</p>
-          <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">{organization.description}</p>
+          {/* The logo keeps its own light tile: its indigo letters need a light backdrop. */}
+          <div className="inline-flex rounded-leaf bg-white px-5 py-4 shadow-[0_20px_40px_-20px_rgb(0_0_0/0.6)]">
+            <Logo size="lg" />
+          </div>
+          <p className="mt-8 max-w-sm font-heading text-xl font-bold">{organization.tagline}</p>
+          <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/70">{organization.description}</p>
           {socialLinks.length > 0 && (
             <ul className="mt-6 flex gap-2" aria-label="Social media">
               {socialLinks.map((link) => (
@@ -29,7 +49,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${organization.name} on ${link.label} (opens in a new tab)`}
-                    className="inline-flex size-10 items-center justify-center border border-border bg-background text-muted-foreground transition-colors hover:border-brand hover:bg-brand hover:text-highlight"
+                    className="inline-flex size-10 items-center justify-center border border-white/20 text-white/80 transition-colors hover:border-highlight hover:bg-highlight hover:text-highlight-foreground"
                   >
                     <SocialIcon platform={link.platform} className="size-4" />
                   </a>
@@ -40,23 +60,23 @@ export function Footer() {
         </div>
 
         <nav aria-label="Footer" className="md:col-span-3">
-          <h2 className="text-xs font-semibold tracking-[0.18em] text-brand uppercase">Explore</h2>
+          <h2 className="text-xs font-semibold tracking-[0.18em] text-highlight uppercase">Explore</h2>
           <ul className="mt-5 space-y-3 text-sm">
             {navigation.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="text-foreground/80 transition-colors hover:text-brand-2">
+                <Link href={item.href} className={linkClass}>
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
         <div className="md:col-span-4">
-          <h2 className="text-xs font-semibold tracking-[0.18em] text-brand uppercase">Contact</h2>
-          <address className="mt-5 space-y-3 text-sm text-foreground/80 not-italic">
+          <h2 className="text-xs font-semibold tracking-[0.18em] text-highlight uppercase">Contact</h2>
+          <address className="mt-5 space-y-3 text-sm not-italic">
             {contact.address && (
-              <p>
+              <p className="text-white/70">
                 {contact.address.lines.map((line) => (
                   <span key={line} className="block">
                     {line}
@@ -66,38 +86,40 @@ export function Footer() {
             )}
             {contact.email && (
               <p>
-                <a href={`mailto:${contact.email}`} className="transition-colors hover:text-brand-2">
+                <a href={`mailto:${contact.email}`} className={linkClass}>
                   {contact.email}
                 </a>
               </p>
             )}
             {contact.phone && (
               <p>
-                <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className="transition-colors hover:text-brand-2">
+                <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className={linkClass}>
                   {contact.phone}
                 </a>
               </p>
             )}
             <p>
-              <a href={contact.website} className="transition-colors hover:text-brand-2">
+              <a href={contact.website} className={linkClass}>
                 {websiteLabel}
               </a>
             </p>
-            <p>
-              <a href="#contact" className="font-medium text-brand-2 underline-offset-4 hover:underline">
-                Send us a message
-              </a>
-            </p>
           </address>
+          <Link
+            href="/contact"
+            className="group mt-7 inline-flex items-center gap-2 rounded-leaf-sm bg-highlight px-5 py-3 text-xs font-semibold tracking-[0.14em] text-highlight-foreground uppercase transition-colors hover:bg-white"
+          >
+            Send us a message
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+          </Link>
         </div>
       </div>
 
-      <div className="border-t border-border">
-        <div className="container-page flex flex-col gap-2 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-white/10">
+        <div className="container-page flex flex-col gap-2 py-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {organization.legalName}. All rights reserved.
           </p>
-          <a href="#top" className="transition-colors hover:text-brand-2">
+          <a href="#main" className="transition-colors hover:text-white">
             Back to top ↑
           </a>
         </div>

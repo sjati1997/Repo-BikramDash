@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next"
 import { Archivo, Noto_Sans } from "next/font/google"
 
+import { Footer } from "@/components/layout/footer"
+import { Header } from "@/components/layout/header"
+import { SiteBackground } from "@/components/layout/site-background"
 import { MotionProvider } from "@/components/motion/motion-provider"
 import { organization } from "@/config/organization"
 import { siteUrl } from "@/lib/site"
@@ -20,10 +23,8 @@ export const metadata: Metadata = {
   },
   description: organization.description,
   applicationName: organization.name,
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    url: "/",
     siteName: organization.name,
     title: organization.name,
     description: organization.description,
@@ -51,8 +52,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       {/* Browser extensions (e.g. Grammarly) add attributes to <body> before React
           hydrates. This ignores attribute mismatches on <body> only — the rest of
           the tree is still checked. */}
-      <body className="flex min-h-full flex-col" suppressHydrationWarning>
-        <MotionProvider>{children}</MotionProvider>
+      <body className="flex min-h-full flex-col bg-ink" suppressHydrationWarning>
+        <MotionProvider>
+          {/* One live background shared by every page. */}
+          <SiteBackground />
+          <Header />
+          <main id="main" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   )

@@ -2,6 +2,8 @@
 
 import { AnimatePresence, m } from "framer-motion"
 import { Menu, X } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
 import { Logo } from "@/components/layout/logo"
@@ -10,35 +12,14 @@ import { organization } from "@/config/organization"
 import { cn } from "@/lib/utils"
 
 const navItems = organization.navigation
-const sectionIds = navItems.map((item) => item.href.slice(1))
+const cta = organization.hero.primaryCta
 
-/** Tracks which navigation section currently occupies the middle of the viewport. */
-function useActiveSection() {
-  const [active, setActive] = useState<string | null>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id)
-        }
-      },
-      { rootMargin: "-45% 0px -50% 0px" }
-    )
-    for (const id of sectionIds) {
-      const element = document.getElementById(id)
-      if (element) observer.observe(element)
-    }
-    return () => observer.disconnect()
-  }, [])
-
-  return active
-}
+const isCurrent = (pathname: string, href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href))
 
 export function Header() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const active = useActiveSection()
   const toggleRef = useRef<HTMLButtonElement>(null)
   const firstLinkRef = useRef<HTMLAnchorElement>(null)
 
@@ -71,36 +52,14 @@ export function Header() {
     }
   }, [menuOpen])
 
-  const solid = scrolled || menuOpen
-
-  // Scrolling while the menu animates closed gets cancelled on mobile, so the
-  // target is queued and scrolled to once the exit animation has finished.
-  const pendingTarget = useRef<string | null>(null)
-
-  const navigateFromMenu = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    const href = event.currentTarget.getAttribute("href")
-    if (href?.startsWith("#") && document.getElementById(href.slice(1))) {
-      event.preventDefault()
-      pendingTarget.current = href
-    }
-    setMenuOpen(false)
-  }
-
-  const scrollToPendingTarget = () => {
-    const href = pendingTarget.current
-    pendingTarget.current = null
-    if (!href) return
-    document.getElementById(href.slice(1))?.scrollIntoView()
-    history.pushState(null, "", href)
-  }
+  const closeMenu = () => setMenuOpen(false)
 
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300",
-        // Always solid: the logo needs a light backdrop, and the hero is a dark photo.
-        "border-border bg-background/95 backdrop-blur-md",
-        solid && "shadow-[0_6px_24px_-12px_oklch(0.2_0.1_280/0.35)]"
+        "fixed inset-x-0 top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md transition-shadow duration-300",
+        // Always solid: the logo needs a light backdrop over the dark live background.
+        (scrolled || menuOpen) && "shadow-[0_6px_24px_-12px_oklch(0.2_0.1_280/0.35)]"
       )}
     >
       <a
@@ -116,21 +75,21 @@ export function Header() {
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-1">
             {navItems.map((item) => {
-              const isActive = active === item.href.slice(1)
+              const current = isCurrent(pathname, item.href)
               return (
                 <li key={item.href}>
-                  <a
+                  <Link
                     href={item.href}
-                    aria-current={isActive ? "true" : undefined}
+                    aria-current={current ? "page" : undefined}
                     className={cn(
                       "relative px-3 py-2 text-sm font-medium transition-colors",
                       "after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-300",
                       "hover:text-foreground hover:after:scale-x-100",
-                      isActive ? "text-foreground after:scale-x-100" : "text-muted-foreground"
+                      current ? "text-foreground after:scale-x-100" : "text-muted-foreground"
                     )}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               )
             })}
@@ -138,12 +97,12 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href={organization.hero.primaryCta.href}
+          <Link
+            href={cta.href}
             className={cn(buttonVariants({ size: "sm" }), "hidden bg-brand text-brand-foreground hover:bg-brand-2 sm:inline-flex")}
           >
-            {organization.hero.primaryCta.label}
-          </a>
+            {cta.label}
+          </Link>
           <button
             ref={toggleRef}
             type="button"
@@ -158,7 +117,7 @@ export function Header() {
         </div>
       </div>
 
-      <AnimatePresence initial={false} onExitComplete={scrollToPendingTarget}>
+      <AnimatePresence initial={false}>
         {menuOpen && (
           <m.nav
             id="mobile-menu"
@@ -178,25 +137,25 @@ export function Header() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.04 * index + 0.05, duration: 0.3 }}
                 >
-                  <a
+                  <Link
                     ref={index === 0 ? firstLinkRef : undefined}
                     href={item.href}
-                    onClick={navigateFromMenu}
-                    aria-current={active === item.href.slice(1) ? "true" : undefined}
+                    onClick={closeMenu}
+                    aria-current={isCurrent(pathname, item.href) ? "page" : undefined}
                     className="flex items-center justify-between border-b border-border py-4 font-heading text-xl font-semibold aria-[current]:text-brand"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </m.li>
               ))}
               <li className="pt-6">
-                <a
-                  href={organization.hero.primaryCta.href}
-                  onClick={navigateFromMenu}
+                <Link
+                  href={cta.href}
+                  onClick={closeMenu}
                   className={cn(buttonVariants({ size: "lg" }), "w-full bg-brand text-brand-foreground hover:bg-brand-2")}
                 >
-                  {organization.hero.primaryCta.label}
-                </a>
+                  {cta.label}
+                </Link>
               </li>
             </ul>
           </m.nav>

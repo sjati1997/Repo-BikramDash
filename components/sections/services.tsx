@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react"
+import Link from "next/link"
 
 import { Reveal } from "@/components/motion/reveal"
 import { Spotlight } from "@/components/motion/spotlight"
@@ -44,7 +45,7 @@ export function ServiceCard({ icon: Icon, title, description, cta, number }: Ser
       <h3 className="mt-6 font-heading text-xl font-bold text-foreground">{title}</h3>
       <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">{description}</p>
       {cta && (
-        <a
+        <Link
           href={cta.href}
           className="mt-7 inline-flex items-center gap-1.5 self-start text-xs font-semibold tracking-[0.14em] text-brand-2 uppercase after:absolute after:inset-0 focus-visible:outline-offset-4"
         >
@@ -54,7 +55,7 @@ export function ServiceCard({ icon: Icon, title, description, cta, number }: Ser
             className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             aria-hidden="true"
           />
-        </a>
+        </Link>
       )}
     </article>
   )

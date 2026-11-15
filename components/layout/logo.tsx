@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import logo from "@/assets/brand/rks-logo.png"
 import { organization } from "@/config/organization"
@@ -9,7 +10,7 @@ type LogoProps = { className?: string; priority?: boolean; size?: "default" | "l
 
 export function Logo({ className, priority = false, size = "default" }: LogoProps) {
   return (
-    <a href="#top" className={cn("inline-flex shrink-0 items-center", className)}>
+    <Link href="/" className={cn("inline-flex shrink-0 items-center", className)}>
       <Image
         src={logo}
         alt={organization.name}
@@ -17,6 +18,6 @@ export function Logo({ className, priority = false, size = "default" }: LogoProp
         sizes="160px"
         className={size === "lg" ? "h-16 w-auto" : "h-11 w-auto md:h-14"}
       />
-    </a>
+    </Link>
   )
 }

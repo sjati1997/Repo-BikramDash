@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 import { Reveal } from "@/components/motion/reveal"
 import { Spotlight } from "@/components/motion/spotlight"
@@ -33,8 +34,8 @@ export function WhatWeDo() {
           ))}
           {/* Sixth cell (large screens): a route to the contact form keeps the grid even. */}
           <li className="hidden lg:block">
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               className="group flex h-full flex-col justify-between bg-brand p-8 text-brand-foreground transition-colors duration-300 hover:bg-brand-2"
             >
               <span className="text-xs font-semibold tracking-[0.18em] text-highlight uppercase">{contactSection.eyebrow}</span>
@@ -42,7 +43,7 @@ export function WhatWeDo() {
                 {contactSection.heading}
                 <ArrowRight className="size-6 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </span>
-            </a>
+            </Link>
           </li>
         </Spotlight>
       </div>

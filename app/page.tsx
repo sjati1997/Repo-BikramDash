@@ -1,36 +1,28 @@
-import { Footer } from "@/components/layout/footer"
-import { Header } from "@/components/layout/header"
-import { About } from "@/components/sections/about"
-import { Approach } from "@/components/sections/approach"
-import { Commitment } from "@/components/sections/commitment"
-import { Contact } from "@/components/sections/contact"
+import type { Metadata } from "next"
+
+import { PageSheet } from "@/components/layout/page-sheet"
 import { CallToAction } from "@/components/sections/cta"
 import { Hero } from "@/components/sections/hero"
-import { Mission } from "@/components/sections/mission"
 import { Services } from "@/components/sections/services"
-import { WhatWeDo } from "@/components/sections/what-we-do"
 import { WhyRks } from "@/components/sections/why-rks"
 import { organization } from "@/config/organization"
 import { siteUrl } from "@/lib/site"
 
-export default function Home() {
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: { url: "/" },
+}
+
+export default function HomePage() {
   return (
     <>
       <OrganizationJsonLd />
-      <Header />
-      <main id="main" tabIndex={-1} className="flex-1 outline-none">
-        <Hero />
+      <Hero />
+      <PageSheet>
         <WhyRks />
-        <About />
-        <WhatWeDo />
         <Services />
-        <Approach />
-        <Mission />
-        <Commitment />
         <CallToAction />
-        <Contact />
-      </main>
-      <Footer />
+      </PageSheet>
     </>
   )
 }

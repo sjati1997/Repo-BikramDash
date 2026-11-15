@@ -2,7 +2,7 @@
 
 The website for RKS Technology Group LLC, a technology consulting and talent solutions firm. Organizations and candidates can learn about the company, its services and approach, then send an enquiry that is emailed to the administrator.
 
-It's a responsive, accessible, single-page site built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, shadcn/ui (Base UI), and Framer Motion. Enquiries are delivered through [Resend](https://resend.com).
+It's a responsive, accessible, multi-page site built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, shadcn/ui (Base UI), and Framer Motion. Enquiries are delivered through [Resend](https://resend.com).
 
 > **Content is client-approved.** A few contact details are still to be supplied (marked `TODO(client)`) in [`config/organization.ts`](config/organization.ts) before launch (see [Content to replace](#content-to-replace)).
 
@@ -20,6 +20,18 @@ It's a responsive, accessible, single-page site built with Next.js 16 (App Route
 | Fonts | Archivo (headings), Noto Sans (body) via `next/font` |
 
 There is no database. Submissions go straight to email. To store them later, add PostgreSQL + Prisma and save the submission inside `submitContactForm` (`lib/contact/actions.ts`) before or after sending the email. Nothing else needs to change.
+
+## Pages
+
+| Route | Content |
+| --- | --- |
+| `/` | Hero, Why RKS, Our Services, Relationships band |
+| `/about` | About us, Vision/Mission/Values, Relationships band |
+| `/services` | What We Do, Our Services, Relationships band |
+| `/approach` | Our Approach, Our Commitment, Relationships band |
+| `/contact` | Contact form (with details and map once supplied) |
+
+The header, footer and **live background** are in `app/layout.tsx`, so they're shared by every page. The background is `SiteBackground`: a fixed navy-to-indigo gradient with the animated `NetworkCanvas`. Each inner page opens with a `PageHero` banner on the live background. Its sections then sit on a light `PageSheet` panel, inset on larger screens so the background stays visible around it. Banner and SEO copy for each page lives in `organization.pages` in `config/organization.ts`. Each page sets its own title, description and canonical URL, and all pages are listed in the sitemap.
 
 ## Brand system
 

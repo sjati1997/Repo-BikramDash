@@ -8,13 +8,10 @@
 
 import aboutWorkshop from "@/assets/images/about-workshop.jpg"
 import commitmentPartners from "@/assets/images/commitment-partners.jpg"
-import heroTeam from "@/assets/images/hero-team.jpg"
 import networkEarth from "@/assets/images/network-earth.jpg"
 import relationshipsTowers from "@/assets/images/relationships-towers.jpg"
 
 export const images = {
-  /** Hero background — technology professionals collaborating. Decorative (text sits on top). */
-  hero: { src: heroTeam, alt: "" },
   /** "Why RKS" band — city lights across the globe, suggesting a connected network. Decorative. */
   network: { src: networkEarth, alt: "" },
   /** About section photo. */

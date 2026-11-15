@@ -10,7 +10,6 @@ Group staff, clients or premises.
 
 | File | Used in | Source |
 | --- | --- | --- |
-| `hero-team.jpg` | Hero background | https://images.unsplash.com/photo-1522071820081-009f0129c71c |
 | `network-earth.jpg` | "Why RKS" band | https://images.unsplash.com/photo-1451187580459-43490279c0fa |
 | `about-workshop.jpg` | About section | https://images.unsplash.com/photo-1552664730-d307ca884978 |
 | `commitment-partners.jpg` | Our Commitment | https://images.unsplash.com/photo-1600880292203-757bb62b4baf |

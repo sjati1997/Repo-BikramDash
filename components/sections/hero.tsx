@@ -1,13 +1,11 @@
 import { ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react"
+import Link from "next/link"
 
 import { BrandBar } from "@/components/brand/brand-mark"
 import { Magnetic } from "@/components/motion/magnetic"
-import { NetworkCanvas } from "@/components/motion/network-canvas"
-import { ParallaxImage } from "@/components/motion/parallax-image"
 import { ParallaxMark } from "@/components/motion/parallax-mark"
 import { TiltCard } from "@/components/motion/tilt-card"
 import { buttonVariants } from "@/components/ui/button"
-import { images } from "@/config/images"
 import { organization } from "@/config/organization"
 import { cn } from "@/lib/utils"
 
@@ -22,22 +20,9 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden bg-ink pt-28 pb-28 text-white md:pt-32"
+      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden pt-28 pb-28 text-white md:pt-32"
     >
-      {/* Live background: slowly zooming photo, navy/indigo overlays, then an animated network. */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
-        <ParallaxImage
-          src={images.hero.src}
-          alt={images.hero.alt}
-          priority
-          strength={18}
-          className="object-[60%_center] motion-safe:animate-[kenburns_30s_ease-in-out_infinite_alternate]"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(100deg,var(--ink)_0%,color-mix(in_oklab,var(--ink)_90%,transparent)_38%,color-mix(in_oklab,var(--brand)_62%,transparent)_72%,color-mix(in_oklab,var(--brand)_45%,transparent)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-ink/70 to-transparent" />
-        <NetworkCanvas className="absolute inset-0 size-full" />
-      </div>
-
+      {/* Transparent: the site-wide live background (SiteBackground) shows through. */}
       <div className="container-page grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7">
           <p className={cn(enter, "mb-6 inline-flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-highlight uppercase")}>
@@ -62,7 +47,7 @@ export function Hero() {
 
           <div className={cn(enter, "mt-10 flex flex-col gap-3 sm:flex-row")} style={{ animationDelay: "240ms" }}>
             <Magnetic className="flex">
-              <a
+              <Link
                 href={hero.primaryCta.href}
                 className={cn(
                   buttonVariants({ size: "lg" }),
@@ -71,9 +56,9 @@ export function Hero() {
               >
                 {hero.primaryCta.label}
                 <ArrowRight data-icon="inline-end" className="transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </Link>
             </Magnetic>
-            <a
+            <Link
               href={hero.secondaryCta.href}
               className={cn(
                 buttonVariants({ size: "lg", variant: "outline" }),
@@ -81,7 +66,7 @@ export function Hero() {
               )}
             >
               {hero.secondaryCta.label}
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -119,13 +104,13 @@ function HeroCard({ items }: { items: readonly string[] }) {
               </li>
             ))}
           </ul>
-          <a
-            href="#services"
+          <Link
+            href="/services"
             className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold tracking-[0.14em] text-brand-2 uppercase underline-offset-4 translate-z-6 hover:underline"
           >
             Explore our services
             <ArrowUpRight className="size-4" aria-hidden="true" />
-          </a>
+          </Link>
         </div>
         {/* Logo shapes hovering in front of the card, each drifting at its own depth. */}
         <ParallaxMark className="pointer-events-none absolute -top-10 right-3 w-24 sm:-right-6 translate-z-20 drop-shadow-[0_18px_24px_rgb(0_0_0/0.35)] sm:w-28" />

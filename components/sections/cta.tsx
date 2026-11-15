@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 import { brandMarkPaths } from "@/components/brand/brand-mark"
 import { Magnetic } from "@/components/motion/magnetic"
@@ -40,7 +41,7 @@ export function CallToAction() {
               </div>
             </div>
             <Magnetic className="relative mt-8 inline-flex lg:col-span-4 lg:mt-0 lg:justify-self-end">
-              <a
+              <Link
                 href={relationships.action.href}
                 className={cn(
                   buttonVariants({ size: "lg" }),
@@ -49,7 +50,7 @@ export function CallToAction() {
               >
                 {relationships.action.label}
                 <ArrowRight data-icon="inline-end" className="transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </Link>
             </Magnetic>
           </div>
         </Reveal>

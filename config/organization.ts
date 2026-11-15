@@ -40,7 +40,10 @@ import {
   UsersRound,
 } from "lucide-react"
 
-export type NavItem = { label: string; href: `#${string}` }
+export type NavItem = { label: string; href: `/${string}` }
+
+/** Banner and SEO copy for an inner page. */
+export type PageCopy = { path: `/${string}`; eyebrow: string; title: string; description?: string }
 
 export type SocialPlatform = "linkedin" | "x" | "facebook" | "instagram" | "youtube"
 export type SocialLink = { platform: SocialPlatform; label: string; href: string }
@@ -88,20 +91,50 @@ export const organization = {
   socialLinks: [] as SocialLink[],
 
   navigation: [
-    { label: "About", href: "#about" },
-    { label: "What we do", href: "#what-we-do" },
-    { label: "Services", href: "#services" },
-    { label: "Approach", href: "#approach" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Approach", href: "/approach" },
+    { label: "Contact", href: "/contact" },
   ] satisfies NavItem[],
+
+  /** Page banners — wording taken from the approved copy. */
+  pages: {
+    about: {
+      path: "/about",
+      eyebrow: "About us",
+      title: "About RKS Technology Group",
+      description:
+        "RKS Technology Group connects organizations with technology professionals while helping candidates discover opportunities aligned with their skills and career goals.",
+    },
+    services: {
+      path: "/services",
+      eyebrow: "What we do",
+      title: "Our Services",
+      description:
+        "Our services span IT consulting, technology solutions, IT staffing, talent solutions, workforce programs, professional development, and career services.",
+    },
+    approach: {
+      path: "/approach",
+      eyebrow: "Our approach",
+      title: "Listen. Understand. Collaborate. Deliver.",
+    },
+    contact: {
+      path: "/contact",
+      eyebrow: "Contact us",
+      title: "Connect With Us",
+      description:
+        "Whether you're looking for exceptional talent or your next career opportunity, RKS Technology Group is here to help you take the next step.",
+    },
+  } satisfies Record<string, PageCopy>,
 
   hero: {
     eyebrow: "Technology consulting & talent solutions",
     headline: "Building Skills. Creating Opportunities.",
     description:
       "Connecting technology talent with the right opportunities to build careers and drive business growth.",
-    primaryCta: { label: "Connect With Us", href: "#contact" },
-    secondaryCta: { label: "Our Services", href: "#services" },
+    primaryCta: { label: "Connect With Us", href: "/contact" },
+    secondaryCta: { label: "Our Services", href: "/services" },
   },
 
   whyRks: {
@@ -178,28 +211,28 @@ export const organization = {
         title: "Full-Time Job Search Assistance",
         description:
           "Personalized support to help job seekers identify relevant opportunities, strengthen their applications, and navigate the full-time job search process with a structured, strategic approach.",
-        cta: { label: "Enquire", href: "#contact" },
+        cta: { label: "Enquire", href: "/contact" },
       },
       {
         icon: MonitorPlay,
         title: "Remote Career Bootcamp",
         description:
           "Practical, instructor-led remote training designed to build job-ready skills, strengthen professional capabilities, and prepare candidates for today’s competitive employment market.",
-        cta: { label: "Enquire", href: "#contact" },
+        cta: { label: "Enquire", href: "/contact" },
       },
       {
         icon: Rocket,
         title: "Independent Internship Programs",
         description:
           "Flexible internship opportunities focused on practical exposure, professional development, and hands-on experience aligned with a candidate’s career goals.",
-        cta: { label: "Enquire", href: "#contact" },
+        cta: { label: "Enquire", href: "/contact" },
       },
       {
         icon: FileText,
         title: "Professional Resume Building",
         description:
           "ATS-optimized resumes and professional career documents designed to effectively present your skills, experience, and qualifications to recruiters and employers.",
-        cta: { label: "Enquire", href: "#contact" },
+        cta: { label: "Enquire", href: "/contact" },
       },
     ] satisfies Service[],
   },
@@ -263,7 +296,7 @@ export const organization = {
       "At RKS Technology Group, we are focused on more than individual engagements. We aim to build lasting relationships with the organizations and professionals we serve.",
       "By bringing together technology expertise, specialized talent, and professional development, we help create stronger connections between business needs and the capabilities required to meet them.",
     ],
-    action: { label: "Connect With Us", href: "#contact" },
+    action: { label: "Connect With Us", href: "/contact" },
   },
 
   contactSection: {
