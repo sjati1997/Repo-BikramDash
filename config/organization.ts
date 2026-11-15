@@ -11,7 +11,7 @@
 
 import type { LucideIcon } from "lucide-react"
 
-import type { GeoLocation } from "@/lib/maps"
+import type { MapLocation } from "@/lib/maps"
 import {
   Award,
   BrainCircuit,
@@ -58,8 +58,17 @@ export type Service = IconCard & {
 
 export type CompanyFact = { label: string; value: string }
 
-type Address = { lines: readonly string[] }
-type OfficeHours = readonly { days: string; hours: string }[]
+type Address = {
+  street: string
+  city: string
+  /** State or region, e.g. "GA". */
+  region: string
+  postalCode: string
+  /** ISO country code, e.g. "US". */
+  country: string
+}
+/** Opening times; `days` is optional, e.g. { days: "Monday – Friday", hours: "…" }. */
+type OfficeHours = readonly { days?: string; hours: string }[]
 
 export const organization = {
   name: "RKS Technology Group",
@@ -71,20 +80,25 @@ export const organization = {
 
   contact: {
     website: "https://www.rkstechnologygroup.com",
-    // TODO(client): the approved copy listed the website under "Email". Add
-    // the real inbox (e.g. info@rkstechnologygroup.com) once confirmed.
-    email: null as string | null,
-    phone: null as string | null, // TODO(client): actual business number
-    address: null as Address | null, // TODO(client): actual business address
-    officeHours: null as OfficeHours | null, // TODO(client): business hours
+    email: "info@rkstechnologygroup.com" as string | null,
+    /** Shown as written; the tel: link is built from the digits (US number, +1 added). */
+    phone: "(470) 472-8400" as string | null,
+    address: {
+      street: "8735 Dunwoody Place, Ste N",
+      city: "Atlanta",
+      region: "GA",
+      postalCode: "30350",
+      country: "US",
+    } as Address | null,
+    // Add `days` (e.g. "Monday – Friday") if the client confirms which days these apply to.
+    officeHours: [{ hours: "9:30 AM – 6:30 PM EST" }] as OfficeHours | null,
     /**
-     * Office coordinates for the Google Map in the Contact section, in decimal
-     * degrees. In Google Maps, right-click the office and click the numbers at
-     * the top of the menu to copy them. Example:
-     *   { latitude: 40.748817, longitude: -73.985428, zoom: 15 }
-     * TODO(client): the map is hidden until this is set.
+     * Where the Google Map in the Contact section points. An address works;
+     * for pin-point accuracy use coordinates instead — in Google Maps,
+     * right-click the office and click the numbers at the top of the menu:
+     *   { latitude: 33.99, longitude: -84.35, zoom: 16 }
      */
-    location: null as GeoLocation | null,
+    location: { address: "8735 Dunwoody Place, Ste N, Atlanta, GA 30350", zoom: 16 } as MapLocation | null,
   },
 
   /** TODO(client): add the company's social profiles, if any. */
@@ -156,7 +170,7 @@ export const organization = {
     paragraphs: [
       "RKS Technology Group LLC is a technology consulting and talent solutions firm helping organizations and professionals navigate an evolving technology and workforce landscape.",
       "We work with businesses to understand their technology and talent needs and provide practical solutions that align with their goals. Our services span IT consulting, technology solutions, IT staffing, talent solutions, workforce programs, professional development, and career services.",
-      "We believe great results begin with understanding people and businesses—not simply providing a service. That is why we take a collaborative approach to every engagement, listening carefully to our clients, understanding their priorities, and working together to identify the right path forward.",
+      "We believe great results begin with understanding people and businesses, not simply providing a service. That is why we take a collaborative approach to every engagement, listening carefully to our clients, understanding their priorities, and working together to identify the right path forward.",
     ],
     companyFacts: [
       { label: "Company", value: "RKS Technology Group LLC" },
@@ -322,3 +336,14 @@ export type ContactTopic = Organization["contactSection"]["topics"][number]
 
 /** Website address without the protocol, for display. */
 export const websiteLabel = organization.contact.website.replace(/^https?:\/\//, "")
+
+/** Address as display lines, e.g. ["8735 Dunwoody Place, Ste N", "Atlanta, GA 30350"]. */
+export function addressLines(address: Address) {
+  return [address.street, `${address.city}, ${address.region} ${address.postalCode}`]
+}
+
+/** Phone number as an international tel: link (assumes a US number when no country code is given). */
+export function phoneHref(phone: string) {
+  const digits = phone.replace(/\D/g, "")
+  return `tel:+${digits.length === 10 ? `1${digits}` : digits}`
+}

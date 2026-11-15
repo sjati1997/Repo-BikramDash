@@ -40,7 +40,14 @@ function OrganizationJsonLd() {
     ...(contact.email && { email: contact.email }),
     ...(contact.phone && { telephone: contact.phone }),
     ...(contact.address && {
-      address: { "@type": "PostalAddress", streetAddress: contact.address.lines.join(", ") },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: contact.address.street,
+        addressLocality: contact.address.city,
+        addressRegion: contact.address.region,
+        postalCode: contact.address.postalCode,
+        addressCountry: contact.address.country,
+      },
     }),
     ...(organization.socialLinks.length > 0 && { sameAs: organization.socialLinks.map((link) => link.href) }),
   }

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { brandMarkPaths } from "@/components/brand/brand-mark"
 import { Logo } from "@/components/layout/logo"
 import { SocialIcon } from "@/components/ui/social-icon"
-import { organization, websiteLabel } from "@/config/organization"
+import { addressLines, organization, phoneHref, websiteLabel } from "@/config/organization"
 
 const linkClass = "text-white/70 transition-colors hover:text-white"
 
@@ -77,7 +77,7 @@ export function Footer() {
           <address className="mt-5 space-y-3 text-sm not-italic">
             {contact.address && (
               <p className="text-white/70">
-                {contact.address.lines.map((line) => (
+                {addressLines(contact.address).map((line) => (
                   <span key={line} className="block">
                     {line}
                   </span>
@@ -93,11 +93,17 @@ export function Footer() {
             )}
             {contact.phone && (
               <p>
-                <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className={linkClass}>
+                <a href={phoneHref(contact.phone)} className={linkClass}>
                   {contact.phone}
                 </a>
               </p>
             )}
+            {contact.officeHours?.map((entry) => (
+              <p key={`${entry.days ?? ""}${entry.hours}`} className="text-white/70">
+                {entry.days ? `${entry.days}: ` : "Office hours: "}
+                {entry.hours}
+              </p>
+            ))}
             <p>
               <a href={contact.website} className={linkClass}>
                 {websiteLabel}

@@ -4,7 +4,7 @@ The website for RKS Technology Group LLC, a technology consulting and talent sol
 
 It's a responsive, accessible, multi-page site built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, shadcn/ui (Base UI), and Framer Motion. Enquiries are delivered through [Resend](https://resend.com).
 
-> **Content is client-approved.** A few contact details are still to be supplied (marked `TODO(client)`) in [`config/organization.ts`](config/organization.ts) before launch (see [Content to replace](#content-to-replace)).
+> **Content is client-approved.** Social links are still to be supplied (marked `TODO(client)`) in [`config/organization.ts`](config/organization.ts) before launch (see [Content to replace](#content-to-replace)).
 
 ---
 
@@ -191,16 +191,19 @@ Run it behind a reverse proxy (nginx, Caddy) with HTTPS. Make sure the proxy for
 
 ## Content to replace
 
-The site uses the client-approved copy in `config/organization.ts`. Some details are still missing; search the file for `TODO(client)`. Each one is `null` and hidden on the site until it's filled in:
+The site uses the client-approved copy in `config/organization.ts`. Contact details are set under `contact`:
 
-- [ ] **Email**: the approved copy listed the website (www.rkstechnologygroup.com) under "Email". Confirm the real inbox and set `contact.email`.
-- [ ] **Phone**: `contact.phone` (the copy had "12345679 / Actual business number")
-- [ ] **Office address**: `contact.address`, e.g. `{ lines: ["Street", "City, State ZIP"], mapUrl: "https://…" }`
-- [ ] **Business hours**: `contact.officeHours`, e.g. `[{ days: "Monday – Friday", hours: "9:00 AM – 5:00 PM" }]`
-- [ ] **Map location**: `contact.location`, e.g. `{ latitude: 40.748817, longitude: -73.985428, zoom: 15 }`. In Google Maps, right-click the office and click the coordinates to copy them. The Contact section then shows an embedded Google Map (no API key needed) with an "Open in Google Maps" link, and the address gets a "View on map" link.
+- [x] **Email**: `info@rkstechnologygroup.com`
+- [x] **Phone**: `(470) 472-8400` (the call link is built automatically as `tel:+14704728400`)
+- [x] **Office address**: 8735 Dunwoody Place, Ste N, Atlanta, GA 30350
+- [x] **Office hours**: 9:30 AM – 6:30 PM EST (`contact.officeHours`; add `days`, e.g. `"Monday – Friday"`, once confirmed)
+- [x] **Map location**: the Google Map finds the office by its address. For a pin-point location, replace `contact.location` with coordinates, e.g. `{ latitude: 33.99, longitude: -84.35, zoom: 16 }`. In Google Maps, right-click the office and click the coordinates to copy them.
+
+Still to do (search the file for `TODO(client)`; each is `null` and hidden until filled in):
+
 - [ ] Social media profiles: `socialLinks` (optional)
-- [ ] Optional photo for the About section: `about.image` (put the file in `public/images/`)
-- [ ] Production URL: set `NEXT_PUBLIC_SITE_URL=https://www.rkstechnologygroup.com` in the host's environment variables
+- [ ] Photos: replace the stock images in `assets/images/` with the company's own (see `config/images.ts`)
+- [ ] Production URL: set `NEXT_PUBLIC_SITE_URL=https://www.rkstechnologygroup.com` in the server's `.env` before building
 
 If you change the services, also update `contactSection.topics`. Those are the options in the form's "What can we help you with?" field, and the server only accepts values from that list.
 

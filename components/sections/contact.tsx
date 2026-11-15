@@ -4,7 +4,7 @@ import { ContactForm } from "@/components/contact/contact-form"
 import { LocationMap } from "@/components/contact/location-map"
 import { Reveal } from "@/components/motion/reveal"
 import { SocialIcon } from "@/components/ui/social-icon"
-import { organization } from "@/config/organization"
+import { addressLines, organization, phoneHref } from "@/config/organization"
 import { googleMapsLinkUrl } from "@/lib/maps"
 import { cn } from "@/lib/utils"
 
@@ -29,7 +29,7 @@ export function Contact() {
                 {contact.address && (
                   <InfoItem icon={<MapPin />} label="Office">
                     <address className="not-italic">
-                      {contact.address.lines.map((line) => (
+                      {addressLines(contact.address).map((line) => (
                         <span key={line} className="block">
                           {line}
                         </span>
@@ -56,21 +56,21 @@ export function Contact() {
                 )}
                 {contact.phone && (
                   <InfoItem icon={<Phone />} label="Phone">
-                    <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} className={linkClass}>
+                    <a href={phoneHref(contact.phone)} className={linkClass}>
                       {contact.phone}
                     </a>
                   </InfoItem>
                 )}
                 {contact.officeHours && (
-                  <InfoItem icon={<Clock />} label="Business hours">
-                    <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1">
+                  <InfoItem icon={<Clock />} label="Office hours">
+                    <ul className="space-y-1">
                       {contact.officeHours.map((entry) => (
-                        <div key={entry.days} className="contents">
-                          <dt>{entry.days}</dt>
-                          <dd className="text-muted-foreground">{entry.hours}</dd>
-                        </div>
+                        <li key={`${entry.days ?? ""}${entry.hours}`}>
+                          {entry.days && <span className="mr-2 font-medium">{entry.days}</span>}
+                          {entry.hours}
+                        </li>
                       ))}
-                    </dl>
+                    </ul>
                   </InfoItem>
                 )}
               </ul>

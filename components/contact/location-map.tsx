@@ -1,22 +1,22 @@
 import { ExternalLink, MapPin } from "lucide-react"
 
-import { googleMapsEmbedUrl, googleMapsLinkUrl, isValidLocation, type GeoLocation } from "@/lib/maps"
+import { googleMapsEmbedUrl, googleMapsLinkUrl, isValidLocation, type MapLocation } from "@/lib/maps"
 
 type LocationMapProps = {
-  location: GeoLocation
+  location: MapLocation
   /** Accessible name for the map, e.g. "RKS Technology Group office location". */
   title: string
 }
 
 /**
- * Embedded Google Map pinned to the office coordinates. Uses Google's keyless
+ * Embedded Google Map pinned to the office (address or coordinates). Uses Google's keyless
  * embed, loads lazily (only when scrolled near), and offers a link to open the
  * location in Google Maps for directions.
  */
 export function LocationMap({ location, title }: LocationMapProps) {
   if (!isValidLocation(location)) {
     if (process.env.NODE_ENV !== "production") {
-      console.warn("[LocationMap] Ignoring invalid coordinates in config/organization.ts:", location)
+      console.warn("[LocationMap] Ignoring invalid map location in config/organization.ts:", location)
     }
     return null
   }
