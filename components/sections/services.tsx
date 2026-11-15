@@ -6,14 +6,23 @@ import { Spotlight } from "@/components/motion/spotlight"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { organization, type Service } from "@/config/organization"
 
-export function Services() {
+/**
+ * `onLiveBackground`: no backdrop of its own, so the site's animated background
+ * shows through (used on the home page); the white cards float on top of it.
+ */
+export function Services({ onLiveBackground = false }: { onLiveBackground?: boolean }) {
   const { services } = organization
 
   return (
     <section id="services" aria-labelledby="services-heading" className="section-y">
       <div className="container-page">
         <Reveal>
-          <SectionHeading id="services-heading" eyebrow={services.eyebrow} title={services.heading} />
+          <SectionHeading
+            id="services-heading"
+            eyebrow={services.eyebrow}
+            title={services.heading}
+            tone={onLiveBackground ? "inverted" : "default"}
+          />
         </Reveal>
 
         <Spotlight as="ul" className="mt-14 grid gap-6 md:grid-cols-2">

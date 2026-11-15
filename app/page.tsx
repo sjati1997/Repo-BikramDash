@@ -20,9 +20,10 @@ export default function HomePage() {
       <Hero />
       <PageSheet>
         <WhyRks />
-        <Services />
-        <CallToAction />
       </PageSheet>
+      {/* Transparent: the live background shows behind the service cards and the closing band. */}
+      <Services onLiveBackground />
+      <CallToAction />
     </>
   )
 }
