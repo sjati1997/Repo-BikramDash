@@ -1,0 +1,231 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.brand-mark {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+}
+
+.brand-name {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #14123a;
+}
+
+.brand-name .brand-x {
+  color: var(--color-secondary);
+  border-bottom: 0.2rem solid var(--color-accent);
+}
+
+.site-footer .footer-brand .brand-name {
+  color: #ffffff;
+}
+
+.site-footer .footer-brand .brand-name .brand-x {
+  color: var(--color-accent);
+  border-bottom: 0;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5.2rem;
+  gap: 1.5rem;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-list a {
+  position: relative;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+
+.nav-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-secondary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.nav-list a:hover,
+.nav-list a:focus-visible,
+.nav-list a.active {
+  color: var(--color-text);
+}
+
+.nav-list a:hover::after,
+.nav-list a:focus-visible::after,
+.nav-list a.active::after {
+  transform: scaleX(1);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.9rem;
+  padding: 0.85rem 1.3rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  background: var(--color-secondary);
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(7, 84, 181, 0.2);
+}
+
+.button-primary:hover,
+.button-primary:focus-visible {
+  background: #064795;
+}
+
+.button-secondary {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.nav-toggle {
+  display: none;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+}
+
+.nav-toggle span {
+  display: block;
+  width: 1.2rem;
+  height: 2px;
+  margin: 0.3rem auto;
+  border-radius: 999px;
+  background: var(--color-text);
+}
+
+.card-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.value-card,
+.info-card,
+.stat-item,
+.feature-item,
+.contact-card,
+.service-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px var(--color-shadow);
+}
+
+.value-card,
+.info-card,
+.service-card {
+  padding: 1.5rem;
+}
+
+.value-card {
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.value-card:hover,
+.value-card:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(7, 84, 181, 0.28);
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  border-radius: 0.85rem;
+  background: var(--color-secondary-soft);
+  color: var(--color-secondary);
+  font-weight: 800;
+}
+
+.site-footer {
+  padding: 3.5rem 0 1rem;
+  background: var(--color-primary);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.site-footer h3,
+.site-footer a,
+.site-footer p,
+.site-footer span {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr 1fr;
+  gap: 2rem;
+  padding-bottom: 2rem;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1rem;
+}
+
+.footer-links {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footer-copy {
+  max-width: 28rem;
+}

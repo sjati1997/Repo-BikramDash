@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" role="img" aria-label="Metaxur">
+  <line x1="14" y1="14" x2="50" y2="50" stroke="#0754B5" stroke-width="11" stroke-linecap="round"/>
+  <line x1="50" y1="14" x2="14" y2="50" stroke="#1900B8" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="7" fill="#FFDF59" stroke="#FFFFFF" stroke-width="3"/>
+  <text x="74" y="45" font-family="'Space Grotesk', 'Segoe UI', Arial, sans-serif" font-size="40" font-weight="700" letter-spacing="-1" fill="#14123A">meta<tspan fill="#0754B5">x</tspan>ur</text>
+</svg>
