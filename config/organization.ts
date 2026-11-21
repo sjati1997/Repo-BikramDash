@@ -76,7 +76,7 @@ export const organization = {
     "Connecting technology talent with the right opportunities to build careers and drive business growth.",
 
   contact: {
-    website: "https://www.rkstechnologygroup.com",
+    website: "https://rkstechnologygroup.com",
     email: "info@rkstechnologygroup.com" as string | null,
     /** Shown as written; the tel: link is built from the digits (US number, +1 added). */
     phone: "(470) 472-8400" as string | null,

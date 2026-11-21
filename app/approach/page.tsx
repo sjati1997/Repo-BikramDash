@@ -16,9 +16,9 @@ export default function ApproachPage() {
       <PageHero page={page} />
       <PageSheet>
         <Approach />
-        <Commitment />
-        <CallToAction />
       </PageSheet>
+      <Commitment />
+      <CallToAction />
     </>
   )
 }

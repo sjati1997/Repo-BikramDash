@@ -1,5 +1,4 @@
 import { PageHero } from "@/components/layout/page-hero"
-import { PageSheet } from "@/components/layout/page-sheet"
 import { CallToAction } from "@/components/sections/cta"
 import { Services } from "@/components/sections/services"
 import { WhatWeDo } from "@/components/sections/what-we-do"
@@ -14,11 +13,9 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero page={page} />
-      <PageSheet>
-        <WhatWeDo />
-        <Services />
-        <CallToAction />
-      </PageSheet>
+      <WhatWeDo />
+      <Services />
+      <CallToAction />
     </>
   )
 }

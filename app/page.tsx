@@ -22,7 +22,7 @@ export default function HomePage() {
         <WhyRks />
       </PageSheet>
       {/* Transparent: the live background shows behind the service cards and the closing band. */}
-      <Services onLiveBackground />
+      <Services />
       <CallToAction />
     </>
   )

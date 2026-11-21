@@ -10,10 +10,10 @@ export function WhatWeDo() {
   const { whatWeDo, contactSection } = organization
 
   return (
-    <section id="what-we-do" aria-labelledby="what-we-do-heading" className="section-y bg-surface">
+    <section id="what-we-do" aria-labelledby="what-we-do-heading" className="section-y">
       <div className="container-page">
         <Reveal>
-          <SectionHeading id="what-we-do-heading" eyebrow={whatWeDo.eyebrow} title={whatWeDo.heading} />
+          <SectionHeading id="what-we-do-heading" eyebrow={whatWeDo.eyebrow} title={whatWeDo.heading} tone="inverted" />
         </Reveal>
 
         {/* Hairline grid: the dividers light up near the cursor. */}

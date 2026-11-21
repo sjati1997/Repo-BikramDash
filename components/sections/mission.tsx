@@ -11,7 +11,7 @@ export function Mission() {
     <section id="mission" aria-labelledby="mission-heading" className="section-y">
       <div className="container-page">
         <Reveal>
-          <SectionHeading id="mission-heading" eyebrow={mission.eyebrow} title={mission.heading} />
+          <SectionHeading id="mission-heading" eyebrow={mission.eyebrow} title={mission.heading} tone="inverted" />
         </Reveal>
 
         <Spotlight className="mt-14 grid gap-6 md:grid-cols-2">
@@ -34,7 +34,7 @@ export function Mission() {
 
         <div className="mt-16">
           <Reveal>
-            <h3 className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">Our values</h3>
+            <h3 className="text-xs font-semibold tracking-[0.18em] text-highlight uppercase">Our values</h3>
           </Reveal>
           {/* On phones (2 columns) the 7th value spans the full last row. */}
           <Spotlight as="ul" className="mt-6 grid grid-cols-2 gap-4 max-sm:[&>li:last-child:nth-child(odd)]:col-span-2 sm:grid-cols-4 lg:grid-cols-7">

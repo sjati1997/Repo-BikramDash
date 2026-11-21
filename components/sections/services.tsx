@@ -6,11 +6,8 @@ import { Spotlight } from "@/components/motion/spotlight"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { organization, type Service } from "@/config/organization"
 
-/**
- * `onLiveBackground`: no backdrop of its own, so the site's animated background
- * shows through (used on the home page); the white cards float on top of it.
- */
-export function Services({ onLiveBackground = false }: { onLiveBackground?: boolean }) {
+/** No backdrop of its own: the white cards float on the site's live background. */
+export function Services() {
   const { services } = organization
 
   return (
@@ -21,7 +18,7 @@ export function Services({ onLiveBackground = false }: { onLiveBackground?: bool
             id="services-heading"
             eyebrow={services.eyebrow}
             title={services.heading}
-            tone={onLiveBackground ? "inverted" : "default"}
+            tone="inverted"
           />
         </Reveal>
 

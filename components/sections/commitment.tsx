@@ -11,7 +11,7 @@ export function Commitment() {
   const { commitment } = organization
 
   return (
-    <section aria-labelledby="commitment-heading" className="section-y bg-surface">
+    <section aria-labelledby="commitment-heading" className="section-y">
       <div className="container-page grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-16">
         <Reveal className="lg:col-span-6">
           <TiltCard className="rounded-leaf-lg" max={6}>
@@ -37,11 +37,11 @@ export function Commitment() {
         </Reveal>
 
         <Reveal delay={0.08} className="lg:col-span-6">
-          <p className="mb-6 inline-flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-brand uppercase">
+          <p className="mb-6 inline-flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-highlight uppercase">
             <BrandBar />
             {commitment.eyebrow}
           </p>
-          <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <div className="space-y-6 text-base leading-relaxed text-white/80 sm:text-lg">
             {commitment.paragraphs.map((paragraph) => (
               <p key={paragraph} className="border-l-2 border-brand-2 pl-5">
                 {paragraph}

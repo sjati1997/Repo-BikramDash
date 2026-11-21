@@ -16,9 +16,9 @@ export default function AboutPage() {
       <PageHero page={page} />
       <PageSheet>
         <About />
-        <Mission />
-        <CallToAction />
       </PageSheet>
+      <Mission />
+      <CallToAction />
     </>
   )
 }
